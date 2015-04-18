@@ -14,25 +14,6 @@ var _ = require('underscore');
 var stringifyJSON = function(obj) {
   var stringed = '';
 
-  // your code goes here
-
-  // probably need object.keys
-
-  // print the {, key, semicolon, and comma for an object
-
-  // symbol-keyed properties are ignored
-
-  // var keys = Object.keys(obj);
-
-  // recursively step through the object
-
-  // if obj is an object, print the {
-
-
-  // check if it is a boolean, number, or string
-
-  // USE RECURSION TO CHECK WHAT EACH VALUE IS USING THIS FUNCTION
-
   if (typeof obj === 'boolean') {
     if (obj === true) {
       return 'true'
@@ -65,14 +46,24 @@ var stringifyJSON = function(obj) {
     return stringed;
   }
   
+  if (typeof obj === 'object') {
+    var key;
+    stringed += '{'
 
+    for (key in obj) {
+      stringed += stringifyJSON(obj[key]);
+      stringed += ',';
+    }
 
-  // concatenate (THIS IS MAYBE WHERE RECURSION IS NEEDED) the key
+    stringed = stringed.slice(0, -1);
+    stringed += '}';
+    return stringed;
+  }
 
 };
 
 
-var toStringify = [1, 2, 3];
+var toStringify = {a: 1, b: 2, c: true};
 
 console.log(JSON.stringify(toStringify));
 
