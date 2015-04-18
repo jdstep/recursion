@@ -39,9 +39,10 @@ var stringifyJSON = function(obj) {
 
     for (i = 0; i < obj.length; i+=1) {
       stringed += stringifyJSON(obj[i]);
+      stringed += ',';
     }
 
-    stringed += stringed.slice(0, -1);
+    stringed = stringed.slice(0, -1);
     stringed += ']';
 
     return stringed;
@@ -66,7 +67,7 @@ var stringifyJSON = function(obj) {
 };
 
 
-var toStringify = "hello world";
+var toStringify = [8, "hi"];
 
 console.log(JSON.stringify(toStringify));
 
