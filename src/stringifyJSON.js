@@ -3,14 +3,6 @@
 
 // but you don't so you're going to write it from scratch:
 
-// FROM MDN
-//
-// boolean, number, and string objects are converted according to predefined semantics
-//
-// if undefined, a function, or a symbol it is omitted or ignored (in an array)
-
-var _ = require('underscore');
-
 var stringifyJSON = function(obj) {
   var stringed = '';
 
@@ -32,7 +24,11 @@ var stringifyJSON = function(obj) {
     return '"' + obj + '"';
   }
 
-  if (obj.constructor === Array) {
+  if (obj === null) {
+    return 'null';
+  }
+
+  if (Array.isArray(obj)) {
     var i;
 
     stringed += '[';
@@ -57,6 +53,10 @@ var stringifyJSON = function(obj) {
     stringed += '{'
 
     for (key in obj) {
+      if (typeof obj[key] === 'function' ||
+          typeof obj[key] === 'undefined') {
+        continue;
+      }
       stringed += '"' + key + '"' + ':'; 
       stringed += stringifyJSON(obj[key]);
       stringed += ',';
@@ -71,17 +71,14 @@ var stringifyJSON = function(obj) {
     return stringed;
   }
 
+  if (typeof obj === 'undefined') {
+    return 'undefined';
+  }
+
+  if (typeof obj === 'function') {
+    return '';
+  }
+
 };
-
-
-var toStringify = {"a": "apple"};
-
-console.log(JSON.stringify(toStringify));
-
-console.log(stringifyJSON(toStringify));
-
-console.log(JSON.stringify(toStringify) === stringifyJSON(toStringify));
-
-
 
 
