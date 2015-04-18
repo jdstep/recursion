@@ -29,25 +29,27 @@ var stringifyJSON = function(obj) {
   }
 
   if (typeof obj === 'string') {
-    return obj;
+    return '"' + obj + '"';
   }
 
   if (obj.constructor === Array) {
     var i;
+
     stringed += '[';
+
     for (i = 0; i < obj.length; i+=1) {
       stringed += stringifyJSON(obj[i]);
-      if (i < (obj.length - 1)) {
-        stringed += ',';
-      } else {
-        stringed += ']';
-      }
     }
+
+    stringed += stringed.slice(0, -1);
+    stringed += ']';
+
     return stringed;
   }
   
   if (typeof obj === 'object') {
     var key;
+
     stringed += '{'
 
     for (key in obj) {
@@ -57,13 +59,14 @@ var stringifyJSON = function(obj) {
 
     stringed = stringed.slice(0, -1);
     stringed += '}';
+
     return stringed;
   }
 
 };
 
 
-var toStringify = {a: 1, b: 2, c: true};
+var toStringify = "hello world";
 
 console.log(JSON.stringify(toStringify));
 
