@@ -42,7 +42,10 @@ var stringifyJSON = function(obj) {
       stringed += ',';
     }
 
-    stringed = stringed.slice(0, -1);
+    if (stringed[stringed.length - 1] === ',') {
+      stringed = stringed.slice(0, -1);
+    }
+
     stringed += ']';
 
     return stringed;
@@ -54,11 +57,15 @@ var stringifyJSON = function(obj) {
     stringed += '{'
 
     for (key in obj) {
+      stringed += '"' + key + '"' + ':'; 
       stringed += stringifyJSON(obj[key]);
       stringed += ',';
     }
 
-    stringed = stringed.slice(0, -1);
+    if (stringed[stringed.length - 1] === ',') {
+      stringed = stringed.slice(0, -1);
+    }
+
     stringed += '}';
 
     return stringed;
@@ -67,11 +74,13 @@ var stringifyJSON = function(obj) {
 };
 
 
-var toStringify = [8, "hi"];
+var toStringify = {"a": "apple"};
 
 console.log(JSON.stringify(toStringify));
 
 console.log(stringifyJSON(toStringify));
+
+console.log(JSON.stringify(toStringify) === stringifyJSON(toStringify));
 
 
 
