@@ -5,8 +5,10 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className){
+  // holds the matched HTML elements for a given class
   var matchedChildren = [];
 
+  // returns true if a class is present for a given node
   var classPresent = function(node, targetClass) {
     var i;
     var nodeClassList;
@@ -26,8 +28,11 @@ var getElementsByClassName = function(className){
     return false;
     };
 
-  var findMatchedChildren = function (currentNode) {
+  // recursively finds all children matching a certain clas of a given node
+  // can likely be refactored to separate out the traversing function for later re-usability
+  var findMatchedChildren = function(currentNode) {
     var allChildren;
+
     if (classPresent(currentNode, className)) {
       matchedChildren.push(currentNode);
     }
