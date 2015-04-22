@@ -26,7 +26,7 @@ var getElementsByClassName = function(className){
     }
 
     return false;
-    };cp
+    }
 
   // recursively finds all children matching a certain clas of a given node
   // can likely be refactored to separate out the traversing function for later re-usability
